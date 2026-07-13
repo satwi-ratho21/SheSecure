@@ -97,7 +97,12 @@ const MissingPersonPortal: React.FC = () => {
     try {
       setLoading(true);
       setErrorText(null);
-      const res = await fetch('/api/missing-persons/reports');
+      const token = localStorage.getItem('vs_jwt_token');
+      const res = await fetch('/api/missing-persons/reports', {
+        headers: {
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        }
+      });
       if (!res.ok) {
         throw new Error("Local instance network failure or unavailable endpoints.");
       }
@@ -181,10 +186,12 @@ const MissingPersonPortal: React.FC = () => {
         reporterContact: formReporterContact
       };
 
+      const token = localStorage.getItem('vs_jwt_token');
       const response = await fetch('/api/missing-persons/report', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
         },
         body: JSON.stringify(payload)
       });
@@ -230,10 +237,12 @@ const MissingPersonPortal: React.FC = () => {
     playSystemSound();
 
     try {
+      const token = localStorage.getItem('vs_jwt_token');
       const response = await fetch(`/api/missing-persons/report/${reportId}/rescue-update`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
         },
         body: JSON.stringify({
           summary: newLogSummary,
@@ -261,10 +270,12 @@ const MissingPersonPortal: React.FC = () => {
   const handleStateUpdate = async (reportId: string) => {
     playSystemSound();
     try {
+      const token = localStorage.getItem('vs_jwt_token');
       const response = await fetch(`/api/missing-persons/report/${reportId}/update`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
         },
         body: JSON.stringify({
           status: editingStatus,
@@ -289,8 +300,12 @@ const MissingPersonPortal: React.FC = () => {
     }
     playSystemSound();
     try {
+      const token = localStorage.getItem('vs_jwt_token');
       const response = await fetch(`/api/missing-persons/report/${reportId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        }
       });
       if (response.ok) {
         fetchReports();

@@ -1,0 +1,127 @@
+[
+  {
+    "id": "INC_A1B2C3D",
+    "email": "user@vanguard.mesh",
+    "name": "Amit Patel",
+    "timestamp": "2026-07-11T15:59:05.764Z",
+    "coordinates": {
+      "lat": 17.6868,
+      "lng": 83.2185
+    },
+    "emergencyMessage": "Priority distress broadcast issued by citizen Amit Patel near RK Beach Road, Visakhapatnam (lat: 17.6868, lng: 83.2185). Immediate responders required.",
+    "status": "RESOLVED",
+    "recipients": [
+      "+91 91234 56789"
+    ],
+    "smsStatus": "MOCKED",
+    "smsDetails": "+91 91234 56789: SENT ([SIMULATOR] Fallback active)"
+  },
+  {
+    "id": "INC_X9Y8Z7W",
+    "email": "user@vanguard.mesh",
+    "name": "Amit Patel",
+    "timestamp": "2026-07-13T09:59:05.764Z",
+    "coordinates": {
+      "lat": 17.7041,
+      "lng": 83.2215
+    },
+    "emergencyMessage": "Vanguard automatic audio ping initialized near Safe Zone Block A, Dwaraka Nagar, Visakhapatnam. Citizen reporting active pursuit.",
+    "status": "RESOLVED",
+    "recipients": [
+      "+91 91234 56789",
+      "+91 99887 76655"
+    ],
+    "smsStatus": "MOCKED",
+    "smsDetails": "+91 91234 56789: SENT | +91 99887 76655: SENT"
+  },
+  {
+    "id": "INC_R85MT966",
+    "email": "admin@vanguard.mesh",
+    "name": "Sanjay Verma",
+    "timestamp": "2026-07-13T17:33:41.074Z",
+    "coordinates": {
+      "lat": 17.6868,
+      "lng": 83.2185
+    },
+    "emergencyMessage": "SILENT SOS BROADCAST: Assistance needed immediately. Reason: Covert safe word trigger matched keyword: \"suraksha\". Safe protocols active. | GPS: https://www.google.com/maps?q=17.6868,83.2185",
+    "status": "ACTIVE",
+    "recipients": [
+      "+91 98222 33344",
+      "+91 99887 76655"
+    ],
+    "smsStatus": "FAILED",
+    "smsDetails": "+91 98222 33344: BLOCKED (Twilio API error: Authentication Error - invalid username) | +91 99887 76655: BLOCKED (Twilio API error: Authentication Error - invalid username)"
+  },
+  {
+    "id": "INC_HS3W5YQR",
+    "email": "admin@vanguard.mesh",
+    "name": "Sanjay Verma",
+    "timestamp": "2026-07-13T17:39:03.379Z",
+    "coordinates": {
+      "lat": 17.6868,
+      "lng": 83.2185
+    },
+    "emergencyMessage": "SILENT SOS BROADCAST: Assistance needed immediately. Reason: Covert safe word trigger matched keyword: \"suraksha\". Safe protocols active. | GPS: https://www.google.com/maps?q=17.6868,83.2185",
+    "status": "ACTIVE",
+    "recipients": [
+      "+91 98222 33344",
+      "+91 99887 76655"
+    ],
+    "smsStatus": "FAILED",
+    "smsDetails": "+91 98222 33344: BLOCKED (Twilio API error: Authentication Error - invalid username) | +91 99887 76655: BLOCKED (Twilio API error: Authentication Error - invalid username)"
+  },
+  {
+    "id": "INC_54ZNNBJG",
+    "email": "admin@vanguard.mesh",
+    "name": "Sanjay Verma",
+    "timestamp": "2026-07-13T17:39:47.306Z",
+    "coordinates": {
+      "lat": 17.6868,
+      "lng": 83.2185
+    },
+    "emergencyMessage": "SILENT SOS BROADCAST: Assistance needed immediately. Reason: Covert safe word trigger matched keyword: \"suraksha\". Safe protocols active. | GPS: https://www.google.com/maps?q=17.6868,83.2185",
+    "status": "ACTIVE",
+    "recipients": [
+      "+91 98222 33344",
+      "+91 99887 76655"
+    ],
+    "smsStatus": "FAILED",
+    "smsDetails": "+91 98222 33344: BLOCKED (Twilio API error: Authentication Error - invalid username) | +91 99887 76655: BLOCKED (Twilio API error: Authentication Error - invalid username)"
+  },
+  {
+    "id": "INC_Z4SG7EJR",
+    "email": "admin@vanguard.mesh",
+    "name": "Sanjay Verma",
+    "timestamp": "2026-07-13T17:41:35.345Z",
+    "coordinates": {
+      "lat": 17.6868,
+      "lng": 83.2185
+    },
+    "emergencyMessage": "SILENT SOS BROADCAST: Assistance needed immediately. Reason: Covert safe word trigger matched keyword: \"suraksha\". Safe protocols active. | GPS: https://www.google.com/maps?q=17.6868,83.2185",
+    "status": "ACTIVE",
+    "recipients": [
+      "+91 98222 33344",
+      "+91 99887 76655"
+    ],
+    "smsStatus": "MOCKED",
+    "smsDetails": "+91 98222 33344: DISPATCHED ([SIMULATOR] Twilio dispatch bypassed due to invalid credentials. Text simulated: \"SILENT SOS BROADCAST: Assistance needed immediately. Reason: Covert safe word trigger matched keyword: \\\"suraksha\\\". Safe protocols active. | GPS: https://www.google.com/maps?q=17.6868,83.2185\") | +91 99887 76655: DISPATCHED ([SIMULATOR] Twilio dispatch bypassed due to invalid credentials. Text simulated: \"SILENT SOS BROADCAST: Assistance needed immediately. Reason: Covert safe word trigger matched keyword: \\\"suraksha\\\". Safe protocols active. | GPS: https://www.google.com/maps?q=17.6868,83.2185\")"
+  },
+  {
+    "id": "INC_97NDTULB",
+    "email": "admin@vanguard.mesh",
+    "name": "Sanjay Verma",
+    "timestamp": "2026-07-13T17:42:43.860Z",
+    "coordinates": {
+      "lat": 17.6868,
+      "lng": 83.2185
+    },
+    "emergencyMessage": "SILENT SOS BROADCAST: Assistance needed immediately. Reason: Covert safe word trigger matched keyword: \"suraksha\". Safe protocols active. | GPS: https://www.google.com/maps?q=17.6868,83.2185",
+    "status": "ACTIVE",
+    "recipients": [
+      "+91 98222 33344",
+      "+91 99887 76655"
+    ],
+    "smsStatus": "MOCKED",
+    "smsDetails": "+91 98222 33344: DISPATCHED ([SIMULATOR] Twilio dispatch bypassed due to invalid credentials. Text simulated: \"SILENT SOS BROADCAST: Assistance needed immediately. Reason: Covert safe word trigger matched keyword: \\\"suraksha\\\". Safe protocols active. | GPS: https://www.google.com/maps?q=17.6868,83.2185\") | +91 99887 76655: DISPATCHED ([SIMULATOR] Twilio dispatch bypassed due to invalid credentials. Text simulated: \"SILENT SOS BROADCAST: Assistance needed immediately. Reason: Covert safe word trigger matched keyword: \\\"suraksha\\\". Safe protocols active. | GPS: https://www.google.com/maps?q=17.6868,83.2185\")"
+  }
+]

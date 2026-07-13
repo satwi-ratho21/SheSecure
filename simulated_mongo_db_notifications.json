@@ -1,0 +1,64 @@
+[
+  {
+    "id": "NOT-3910",
+    "timestamp": "2026-07-13T13:59:05.767Z",
+    "channel": "SMS",
+    "title": "Safety Sentinel Triggered",
+    "message": "Emergency SOS broadcast initiated from MVP Colony Sector 4, Visakhapatnam.",
+    "priority": "HIGH",
+    "status": "SENT",
+    "recipient": "+91 98111 55566",
+    "retryCount": 0,
+    "ownerEmail": "satwi033@gmail.com"
+  },
+  {
+    "id": "NOT-4819",
+    "timestamp": "2026-07-13T11:59:05.767Z",
+    "channel": "PUSH",
+    "title": "Safe Route Deviation Detected",
+    "message": "User Satwinder deviated from the designated Safe Route.",
+    "priority": "MEDIUM",
+    "status": "SENT",
+    "recipient": "Satwinder Device #1",
+    "retryCount": 0,
+    "ownerEmail": "satwi033@gmail.com"
+  },
+  {
+    "id": "NOT-5928",
+    "timestamp": "2026-07-13T05:59:05.767Z",
+    "channel": "EMAIL",
+    "title": "Evidence Vault Sealed Backup",
+    "message": "Your encrypted evidence locker backup failed to sync to secure backup server.",
+    "priority": "HIGH",
+    "status": "FAILED",
+    "recipient": "satwi033@gmail.com",
+    "retryCount": 0,
+    "failureReason": "Relay SMTP timeout on remote mail exchange server.",
+    "ownerEmail": "satwi033@gmail.com"
+  },
+  {
+    "id": "NOT-6019",
+    "timestamp": "2026-07-13T03:59:05.767Z",
+    "channel": "IN_APP",
+    "title": "Active Threat Warning",
+    "message": "A suspicious vehicle was flagged near your current safe zone.",
+    "priority": "CRITICAL",
+    "status": "SENT",
+    "recipient": "Global Broadcast",
+    "retryCount": 0,
+    "ownerEmail": "satwi033@gmail.com"
+  },
+  {
+    "id": "NOT-7711",
+    "timestamp": "2026-07-13T00:59:05.767Z",
+    "channel": "SMS",
+    "title": "Crisis Response Link Failed",
+    "message": "Critical contact dispatch alert SMS could not deliver.",
+    "priority": "CRITICAL",
+    "status": "FAILED",
+    "recipient": "+91 98222 66677",
+    "retryCount": 1,
+    "failureReason": "Carrier delivery rejected. Handshake timeout.",
+    "ownerEmail": "satwi033@gmail.com"
+  }
+]

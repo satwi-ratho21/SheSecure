@@ -29,7 +29,7 @@ import { TRANSLATIONS } from './services/translations';
 import { Shield, MapPin, Lock, Brain, Users, Settings, Radio, Globe, BookOpen, Heart, ShieldAlert, Bell } from 'lucide-react';
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<AppView>(AppView.AUTH);
+  const [currentView, setCurrentView] = useState<AppView>(AppView.DASHBOARD);
   const [currentLanguage, setCurrentLanguage] = useState<string>('English');
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isSOSActive, setIsSOSActive] = useState(false);
@@ -130,13 +130,44 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleGlobalHotKeys);
   }, [profile]);
 
-  useEffect(() => {
-    const initializeSession = async () => {
-      // Clear profile and always force view to start on the authentication page on app mount
-      setProfile(null);
-      setCurrentView(AppView.AUTH);
-    };
+  const initializeSession = async () => {
+    // Automatically log in as the default Administrator to bypass Auth entirely and run with pre-verified system capabilities
+    try {
+      const loginRes = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: 'admin@vanguard.mesh', password: 'Password123!' })
+      });
+      if (loginRes.ok) {
+        const loginData = await loginRes.json();
+        if (loginData.token && loginData.profile) {
+          localStorage.setItem('vs_jwt_token', loginData.token);
+          localStorage.setItem('vs_active_user_id', loginData.profile.email);
+          setProfile(loginData.profile);
+          setCurrentView(AppView.DASHBOARD);
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn("Vanguard auto-login backend handshake bypassed (using local session fallback):", err);
+    }
 
+    // Local fallback in case of server restart latency or offline sandboxing
+    const defaultAdminProfile: UserProfile = {
+      uid: 'admin-uid-99',
+      email: 'admin@vanguard.mesh',
+      role: 'ADMIN',
+      name: 'Vanguard System Administrator',
+      safetyId: 'SYS-ADMIN-99',
+      trustCircle: [],
+      hasCompletedOnboarding: true,
+      avatarUrl: ''
+    };
+    setProfile(defaultAdminProfile);
+    setCurrentView(AppView.DASHBOARD);
+  };
+
+  useEffect(() => {
     initializeSession();
   }, []);
 
@@ -176,7 +207,7 @@ const App: React.FC = () => {
     localStorage.removeItem('vs_active_user_id');
     localStorage.removeItem('vs_jwt_token');
     setProfile(null);
-    setCurrentView(AppView.AUTH);
+    initializeSession();
   };
 
   const handleSOSState = (active: boolean) => {
@@ -186,13 +217,9 @@ const App: React.FC = () => {
   if (currentView === AppView.LANDING) {
     return (
       <div className="min-h-screen relative bg-[#020617] techno-grid text-slate-100 overflow-x-hidden">
-        <PublicHome onGetStarted={() => setCurrentView(AppView.AUTH)} />
+        <PublicHome onGetStarted={() => setCurrentView(AppView.DASHBOARD)} />
       </div>
     );
-  }
-
-  if (currentView === AppView.AUTH) {
-    return <div className="min-h-screen flex items-center justify-center p-4 bg-[#020617] techno-grid"><AuthPage onAuthSuccess={handleAuthSuccess} /></div>;
   }
 
   if (currentView === AppView.ONBOARDING) {
@@ -329,6 +356,58 @@ const App: React.FC = () => {
                  <option value="Hindi" className="bg-slate-900 text-white">HI</option>
                  <option value="French" className="bg-slate-900 text-white">FR</option>
                  <option value="Arabic" className="bg-slate-900 text-white">AR</option>
+               </select>
+            </div>
+
+            {/* Quick System Role Switcher */}
+            <div className="flex items-center gap-2 bg-slate-900 border border-indigo-500/20 px-4 py-2 rounded-xl hover:border-indigo-500/40 transition-colors">
+               <Shield className="w-4 h-4 text-indigo-400 animate-pulse" />
+               <select 
+                 value={profile?.role || 'ADMIN'} 
+                 onChange={async (e) => {
+                   const targetRole = e.target.value as 'USER' | 'VOLUNTEER' | 'POLICE' | 'ADMIN';
+                   let email = 'admin@vanguard.mesh';
+                   if (targetRole === 'USER') email = 'user@vanguard.mesh';
+                   else if (targetRole === 'VOLUNTEER') email = 'volunteer@vanguard.mesh';
+                   else if (targetRole === 'POLICE') email = 'police@vanguard.mesh';
+                   
+                   try {
+                     const loginRes = await fetch('/api/auth/login', {
+                       method: 'POST',
+                       headers: { 'Content-Type': 'application/json' },
+                       body: JSON.stringify({ email, password: 'Password123!' })
+                     });
+                     if (loginRes.ok) {
+                       const loginData = await loginRes.json();
+                       if (loginData.token && loginData.profile) {
+                         localStorage.setItem('vs_jwt_token', loginData.token);
+                         localStorage.setItem('vs_active_user_id', loginData.profile.email);
+                         setProfile(loginData.profile);
+                         return;
+                       }
+                     }
+                   } catch (err) {
+                     console.warn("Handshake role switch failed, utilizing client state simulation:", err);
+                   }
+                   
+                   // Offline fallback
+                   setProfile({
+                     email,
+                     role: targetRole,
+                     name: `${targetRole.charAt(0) + targetRole.slice(1).toLowerCase()} Node`,
+                     safetyId: `SYS-${targetRole}-88`,
+                     uid: "fallback-uid-switch",
+                     trustCircle: [],
+                     hasCompletedOnboarding: true,
+                     avatarUrl: ''
+                   });
+                 }}
+                 className="bg-transparent font-black tracking-tight text-[10px] uppercase text-indigo-300 outline-none cursor-pointer"
+               >
+                 <option value="ADMIN" className="bg-slate-900 text-indigo-300">ADMIN</option>
+                 <option value="POLICE" className="bg-slate-900 text-indigo-300">POLICE</option>
+                 <option value="VOLUNTEER" className="bg-slate-900 text-indigo-300">VOLUNTEER</option>
+                 <option value="USER" className="bg-slate-900 text-indigo-300">USER</option>
                </select>
             </div>
 

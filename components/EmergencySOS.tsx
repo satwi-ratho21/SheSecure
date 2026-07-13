@@ -36,12 +36,12 @@ const EmergencySOS: React.FC<EmergencySOSProps> = ({ profile, isActive, onStateC
           addLog(`GPS Lock: ${pos.coords.latitude.toFixed(4)}, ${pos.coords.longitude.toFixed(4)}`);
         }, (err) => {
           addLog('GPS Access Denied. Deploying celestial backup mapping...');
-          const mockLoc = { lat: 41.8781, lng: -87.6298 };
+          const mockLoc = { lat: 17.6868, lng: 83.2185 };
           setLocation(mockLoc);
           addLog(`Bypass GPS Lock: ${mockLoc.lat.toFixed(4)}, ${mockLoc.lng.toFixed(4)}`);
         });
       } else {
-        const mockLoc = { lat: 41.8781, lng: -87.6298 };
+        const mockLoc = { lat: 17.6868, lng: 83.2185 };
         setLocation(mockLoc);
       }
     } else if (!isActive) {
@@ -118,7 +118,7 @@ const EmergencySOS: React.FC<EmergencySOSProps> = ({ profile, isActive, onStateC
 
     let coords = location;
     if (!coords) {
-      coords = { lat: 41.8781, lng: -87.6298 };
+      coords = { lat: 17.6868, lng: 83.2185 };
       setLocation(coords);
     }
     

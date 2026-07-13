@@ -1,0 +1,61 @@
+[
+  {
+    "id": "MS-PER-7721",
+    "fullName": "Anjali Sharma",
+    "age": 14,
+    "gender": "Female",
+    "lastSeenLocation": "Visakhapatnam Railway Station - Platform 1 Exit Gate",
+    "lastSeenDateTime": "2026-05-26T18:30",
+    "clothingDescription": "Red jacket, dark jeans, white sports shoes.",
+    "distinctFeatures": "Birthmark shape near left wrist, tiny silver nose stud.",
+    "photoUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600",
+    "cloudinaryPublicId": "vanguard_cloudinary_ms_9921",
+    "status": "ACTIVE_SEARCH",
+    "urgency": "CRITICAL",
+    "reporterName": "Meera Sharma",
+    "reporterContact": "+91 98989 12345 (Mother)",
+    "timestamp": "2026-05-26T20:45:00Z",
+    "rescueUpdates": [
+      {
+        "id": "UPD-1",
+        "timestamp": "2026-05-26T21:30:00Z",
+        "summary": "Station security cameras matched visual description near bus stand dropoff.",
+        "author": "Officer Prasad (Security Control Room)",
+        "locationState": "Main Ticket Counter Area"
+      },
+      {
+        "id": "UPD-2",
+        "timestamp": "2026-05-27T02:15:00Z",
+        "summary": "Local volunteer patrol alerted of potential risk transit activity.",
+        "author": "Vanguard Dispatcher Group",
+        "locationState": "Platform 4 Exit Gate"
+      }
+    ]
+  },
+  {
+    "id": "MS-PER-8931",
+    "fullName": "Aarav Kumar",
+    "age": 9,
+    "gender": "Male",
+    "lastSeenLocation": "Sivaji Park Playground, MVP Colony, Visakhapatnam",
+    "lastSeenDateTime": "2026-05-27T09:15",
+    "clothingDescription": "Green graphic t-shirt, dark blue athletic trousers.",
+    "distinctFeatures": "Stutters lightly under high stress or anxiety.",
+    "photoUrl": "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?auto=format&fit=crop&q=80&w=600",
+    "cloudinaryPublicId": "vanguard_cloudinary_ms_1234",
+    "status": "SPOTTED",
+    "urgency": "HIGH",
+    "reporterName": "Rakesh Kumar",
+    "reporterContact": "+91 97111 88888 (Father)",
+    "timestamp": "2026-05-27T10:00:00Z",
+    "rescueUpdates": [
+      {
+        "id": "UPD-3",
+        "timestamp": "2026-05-27T11:20:00Z",
+        "summary": "Local resident group detected child sitting alone near the park gate. Visual description matched.",
+        "author": "MVP Colony Community Watch volunteer",
+        "locationState": "Gate Number 3 Vending Kiosk"
+      }
+    ]
+  }
+]

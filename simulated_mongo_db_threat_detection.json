@@ -1,0 +1,48 @@
+[
+  {
+    "id": "THR-1024",
+    "timestamp": "2026-07-08T15:59:05.767Z",
+    "description": "A dark vehicle has been parked outside my block for 3 consecutive nights with the engine running and headlights off. One individual stepped out to observe the property and then returned to the vehicle upon being seen.",
+    "keywords": [
+      "suspicious vehicle",
+      "night observation",
+      "casing"
+    ],
+    "location": "MVP Colony Sector 4, Visakhapatnam",
+    "previousIncidents": "A similar black sedan was reported stalking a neighboring residence last week.",
+    "threatScore": 72,
+    "urgencyLevel": "High Urgency",
+    "riskClassification": "High Risk",
+    "recommendedAction": "Avoid walking alone near this segment at night. Set up trust circle notifications, and report the license plate to regional patrol volunteers.",
+    "alertPriority": "HIGH",
+    "keyThreats": [
+      "Stalking",
+      "Property Casing"
+    ],
+    "vulnerabilityAssessment": "Pattern matches behavior of physical surveillance. Multiple reports of a similar vehicle in MVP Colony validate the risk level.",
+    "ownerEmail": "satwi033@gmail.com"
+  },
+  {
+    "id": "THR-8821",
+    "timestamp": "2026-07-12T15:59:05.767Z",
+    "description": "Received persistent calls from anonymous numbers demanding I reveal my digital vault passcode and physical location, claiming they know my safe route schedule.",
+    "keywords": [
+      "cyber threat",
+      "extortion",
+      "doxxing"
+    ],
+    "location": "Digital Network Layer",
+    "previousIncidents": "None",
+    "threatScore": 89,
+    "urgencyLevel": "Critical Urgency",
+    "riskClassification": "Critical Risk",
+    "recommendedAction": "Lock down all digital credentials. Activate Vanguard encrypted evidence locker and notify safety dispatcher immediately.",
+    "alertPriority": "CRITICAL",
+    "keyThreats": [
+      "Cyber Extortion",
+      "Credential Harassment"
+    ],
+    "vulnerabilityAssessment": "Targeted attack with access to private scheduling data indicates serious personal risk. Threat rating raised to critical.",
+    "ownerEmail": "satwi033@gmail.com"
+  }
+]

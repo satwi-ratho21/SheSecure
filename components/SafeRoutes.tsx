@@ -55,21 +55,21 @@ const playFrequencySound = (freq: number, duration: number) => {
   }
 };
 
-// Default high-fidelity Chicago Loop mock routing results for immediate visual play
-const PRELOADED_CHICAGO_ROUTE = {
+// Default high-fidelity Visakhapatnam mock routing results for immediate visual play
+const PRELOADED_VIZAG_ROUTE = {
   standardRoute: {
-    name: "Express Alleyway Corridor (Direct)",
+    name: "Express Dark Alleyway Bypass (Direct)",
     path: [
-      { lat: 41.8781, lng: -87.6298 }, // Origin
-      { lat: 41.8805, lng: -87.6280 },
-      { lat: 41.8830, lng: -87.6265 },
-      { lat: 41.8850, lng: -87.6250 }  // Destination
+      { lat: 17.6868, lng: 83.2185 }, // Origin
+      { lat: 17.6910, lng: 83.2190 },
+      { lat: 17.6980, lng: 83.2205 },
+      { lat: 17.7041, lng: 83.2215 }  // Destination
     ],
     safetyScore: 54,
     safetyFactors: { lighting: 40, policePresence: 30, isolationAvoidance: 45, activeSentries: 35 },
-    description: "The shortest, most direct route via State Street side-alleys. Traverses multiple narrow lanes that lack public streetlights or active security patrols.",
+    description: "The shortest, most direct route via back lanes. Traverses multiple narrow alleys that lack public streetlights or active security patrols.",
     warnings: [
-      "Extremely poor lighting scheduled in sector 3 alleys.",
+      "Extremely poor lighting scheduled in dark sector lanes.",
       "Zero active volunteer sentries or camera grid overlays currently reported on this segment.",
       "Passes near 2 historically documented high-incident dark zones."
     ]
@@ -77,38 +77,38 @@ const PRELOADED_CHICAGO_ROUTE = {
   safeRoute: {
     name: "Vanguard Well-Lit Patrol Corridor (Safer Suggestion)",
     path: [
-      { lat: 41.8781, lng: -87.6298 }, // Origin
-      { lat: 41.8801, lng: -87.6320 }, // Near CPD
-      { lat: 41.8825, lng: -87.6310 }, // Well-lit Crossing
-      { lat: 41.8845, lng: -87.6285 }, // Busy avenue
-      { lat: 41.8850, lng: -87.6250 }  // Destination
+      { lat: 17.6868, lng: 83.2185 }, // Origin
+      { lat: 17.6890, lng: 83.2200 }, // Near Police Station
+      { lat: 17.6950, lng: 83.2210 }, // Well-lit Crossing
+      { lat: 17.7010, lng: 83.2212 }, // Busy avenue
+      { lat: 17.7041, lng: 83.2215 }  // Destination
     ],
     safetyScore: 92,
     safetyFactors: { lighting: 95, policePresence: 88, isolationAvoidance: 94, activeSentries: 90 },
-    description: "Detours cautiously via major, highly-lit civic avenues. Restructures travel to maximize line-of-sight exposure, nearby camera coverage, and proximity to the Chicago CPD Madison Station.",
+    description: "Detours cautiously via major, highly-lit civic avenues. Restructures travel to maximize line-of-sight exposure, nearby camera coverage, and proximity to the Dwaraka Nagar Police Station.",
     benefits: [
       "100% verified active streetlighting present throughout.",
-      "Stays within 120 meters of active police patrol vehicles & the CPD 1st District.",
+      "Stays within 120 meters of active police patrol vehicles & the Visakhapatnam Police 1st District.",
       "Active remote mesh CCTV overlay and Vanguard volunteer response lines."
     ]
   },
   policeStations: [
     {
-      name: "Chicago PD 1st District",
-      location: { lat: 41.8801, lng: -87.6320 },
-      address: "172 W Madison St",
+      name: "Dwaraka Nagar Police Station",
+      location: { lat: 17.6890, lng: 83.2200 },
+      address: "Dwaraka Nagar Road, Visakhapatnam",
       distanceMeters: 220,
       status: "Active 24/7 (Sentry Presence)"
     },
     {
-      name: "Loop Sector 4 Security Outpost",
-      location: { lat: 41.8835, lng: -87.6290 },
-      address: "State & Madison Safe Crossing",
+      name: "RTC Complex Security Outpost",
+      location: { lat: 17.7010, lng: 83.2212 },
+      address: "RTC Complex Interchange Hub",
       distanceMeters: 380,
       status: "Monitored / Emergency SOS Hub"
     }
   ],
-  aiRecommendation: "Vanguard security algorithms strongly suggest taking the Well-Lit Patrol Corridor. Bypassing the unpatrolled Sector 3 alleyways adds exactly 1.5 minutes to your transit, but elevates your security envelope by roughly 70%."
+  aiRecommendation: "Vanguard security algorithms strongly suggest taking the Well-Lit Patrol Corridor. Bypassing the unpatrolled back lanes adds exactly 1.5 minutes to your transit, but elevates your security envelope by roughly 70%."
 };
 
 // Polyline helper component for JSX maps rendering
@@ -144,8 +144,8 @@ const SafeRoutes: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'TRAVELER' | 'GUARDIAN'>('TRAVELER');
   
   // Dynamic Route search fields
-  const [originQuery, setOriginQuery] = useState('Vanguard Headquarters, Chicago');
-  const [destinationQuery, setDestinationQuery] = useState('Safe House Alpha (North Loop Sector)');
+  const [originQuery, setOriginQuery] = useState('Vanguard Headquarters, Dwaraka Nagar, Visakhapatnam');
+  const [destinationQuery, setDestinationQuery] = useState('Safe House Alpha (MVP Colony Sector 4)');
   
   // Safeguard filters
   const [avoidIsolated, setAvoidIsolated] = useState(true);
@@ -153,7 +153,7 @@ const SafeRoutes: React.FC = () => {
   
   // API analysis states
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [routeData, setRouteData] = useState<any>(PRELOADED_CHICAGO_ROUTE);
+  const [routeData, setRouteData] = useState<any>(PRELOADED_VIZAG_ROUTE);
   const [selectedRouteType, setSelectedRouteType] = useState<'STANDARD' | 'SAFE'>('SAFE');
   const [highlightedStationIndex, setHighlightedStationIndex] = useState<number | null>(null);
   
@@ -165,7 +165,7 @@ const SafeRoutes: React.FC = () => {
   
   // Simulated tracking telemetry
   const [currentStepIdx, setCurrentStepIdx] = useState(0);
-  const [currentLocation, setCurrentLocation] = useState({ lat: 41.8781, lng: -87.6298 });
+  const [currentLocation, setCurrentLocation] = useState({ lat: 17.6868, lng: 83.2185 });
   const [isStrayed, setIsStrayed] = useState(false);
   const [etaMinutes, setEtaMinutes] = useState(15);
   const [deviationMeters, setDeviationMeters] = useState(0);
@@ -304,7 +304,7 @@ const SafeRoutes: React.FC = () => {
       } else {
         const errData = await response.json();
         console.error("Server Route suggests failed", errData);
-        // Fallback to preloaded standard Chicago or a clean auto-generated simulated layout
+        // Fallback to preloaded standard Visakhapatnam or a clean auto-generated simulated layout
         generateLocalSimulatedGrid();
       }
     } catch (err) {
@@ -317,10 +317,12 @@ const SafeRoutes: React.FC = () => {
 
   // Backup simulated dynamic layouts for offgrid or non-credentialed play
   const generateLocalSimulatedGrid = () => {
-    const latOffset = originQuery.toLowerCase().includes('new york') ? 40.7128 : 
-                      originQuery.toLowerCase().includes('san francisco') ? 37.7749 : 41.8781;
-    const lngOffset = originQuery.toLowerCase().includes('new york') ? -74.0060 : 
-                      originQuery.toLowerCase().includes('san francisco') ? -122.4194 : -87.6298;
+    const latOffset = originQuery.toLowerCase().includes('visakhapatnam') || originQuery.toLowerCase().includes('vizag') || originQuery.toLowerCase().includes('rk beach') ? 17.6868 : 
+                      originQuery.toLowerCase().includes('dwaraka nagar') ? 17.7041 :
+                      originQuery.toLowerCase().includes('mvp colony') ? 17.7210 : 17.6868;
+    const lngOffset = originQuery.toLowerCase().includes('visakhapatnam') || originQuery.toLowerCase().includes('vizag') || originQuery.toLowerCase().includes('rk beach') ? 83.2185 : 
+                      originQuery.toLowerCase().includes('dwaraka nagar') ? 83.2215 :
+                      originQuery.toLowerCase().includes('mvp colony') ? 83.2240 : 83.2185;
 
     const dynamicRoute = {
       standardRoute: {
@@ -762,22 +764,22 @@ const SafeRoutes: React.FC = () => {
                 <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest block mono">Quick preset nodes</span>
                 <div className="flex flex-wrap gap-2">
                   <button 
-                    onClick={() => { setOriginQuery("Vanguard Headquarters, Chicago"); setDestinationQuery("Safe House Alpha, Chicago"); }}
+                    onClick={() => { setOriginQuery("Dwaraka Nagar RTC Complex, Visakhapatnam"); setDestinationQuery("RK Beach Park, Visakhapatnam"); }}
                     className="px-2.5 py-1 bg-white/5 hover:bg-white/10 border border-white/5 rounded-lg text-[9px] text-zinc-300 font-mono"
                   >
-                    芝 Chicago Hub
+                    🏖️ RK Beach Corridor
                   </button>
                   <button 
-                    onClick={() => { setOriginQuery("Sutton Place, Manhattan NY"); setDestinationQuery("Vanguard Shelter, Lower East Side"); }}
+                    onClick={() => { setOriginQuery("Gajuwaka Junction, Visakhapatnam"); setDestinationQuery("Vanguard Shelter, MVP Colony"); }}
                     className="px-2.5 py-1 bg-white/5 hover:bg-white/10 border border-white/5 rounded-lg text-[9px] text-zinc-300 font-mono"
                   >
-                    紐 New York
+                    🏭 Gajuwaka-MVP Hub
                   </button>
                   <button 
-                    onClick={() => { setOriginQuery("Presidio Outpost S1, San Francisco"); setDestinationQuery("Civic Center Safe Zone"); }}
+                    onClick={() => { setOriginQuery("Rushikonda Beach, Visakhapatnam"); setDestinationQuery("GITAM Safe Zone, Visakhapatnam"); }}
                     className="px-2.5 py-1 bg-white/5 hover:bg-white/10 border border-white/5 rounded-lg text-[9px] text-zinc-300 font-mono"
                   >
-                    金 San Francisco
+                    🌅 Rushikonda IT Loop
                   </button>
                 </div>
               </div>
@@ -1390,7 +1392,7 @@ const SafeRoutes: React.FC = () => {
                   <Activity className="w-8 h-8 text-zinc-600 mx-auto animate-pulse" />
                   <p className="text-xs font-black text-slate-500 uppercase tracking-wider">NO ACTIVE ESCORTS ONLINE</p>
                   <p className="text-[9px] text-zinc-600 uppercase font-bold leading-normal mono">
-                    Toggle to "Traveler Portal" tab above to start and stream coordinates from Chicago, NY, or virtual coordinates.
+                    Toggle to "Traveler Portal" tab above to start and stream coordinates from Visakhapatnam (Vizag) or virtual coordinates.
                   </p>
                 </div>
               ) : (

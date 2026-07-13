@@ -470,21 +470,21 @@ export const optimizeResourceGrid = async (activeResponders: any[]) => {
 };
 
 export const generateSafeRoute = async (origin: string, destination: string, avoidIsolated: boolean) => {
-  // Always verify if origin and destination are valid, and use Chicago-style fallback as backup/primary
-  const cityOrigin = origin || "State St & Madison St, Chicago, IL";
-  const cityDest = destination || "Michigan Ave & Wacker Dr, Chicago, IL";
+  // Always verify if origin and destination are valid, and use Visakhapatnam-style fallback as backup/primary
+  const cityOrigin = origin || "Dwaraka Nagar RTC Complex, Visakhapatnam";
+  const cityDest = destination || "RK Beach Park, Visakhapatnam";
 
   if (!isAPIKeyAvailable()) {
     const deltaLat = 0.005;
     const deltaLng = 0.005;
     
-    // Coordinates centered around Chicago downtown
-    const startLat = 41.8818;
-    const startLng = -87.6278;
+    // Coordinates centered around Visakhapatnam center (RK Beach / Dwaraka Nagar)
+    const startLat = 17.6868;
+    const startLng = 83.2185;
 
     return {
       standardRoute: {
-        name: "Direct Route via State St Corridor",
+        name: "Direct Route via Asilmetta Junction",
         path: [
           { lat: startLat, lng: startLng },
           { lat: startLat + deltaLat * 0.3, lng: startLng },
@@ -498,8 +498,8 @@ export const generateSafeRoute = async (origin: string, destination: string, avo
           isolationAvoidance: 70,
           activeSentries: 60
         },
-        description: `Direct walk along State St. This route has high pedestrian activity but passes near 1 unlit segment at the intersection alleyway.`,
-        warnings: ["Unlit alley intersection reported at Monroe & State St.", "Lower patrol coverage between cycles 02:00 and 04:00."]
+        description: `Direct walk along Asilmetta Junction. This route has high pedestrian activity but passes near 1 unlit segment at the underpass lanes.`,
+        warnings: ["Unlit lane reported near Dwaraka Nagar alley.", "Lower patrol coverage between cycles 02:00 and 04:00."]
       },
       safeRoute: {
         name: "Vanguard Guarded Corridor detour",
@@ -518,21 +518,21 @@ export const generateSafeRoute = async (origin: string, destination: string, avo
           isolationAvoidance: 95,
           activeSentries: 88
         },
-        description: `Detour via Michigan Ave. Complete constant street illumination present with active volunteer patrol sentries situated every 200 meters.`,
+        description: `Detour via RK Beach Road. Complete constant street illumination present with active volunteer patrol sentries situated every 200 meters.`,
         benefits: ["Constant streetlighting present.", "Traverses highly-active volunteer patrol route.", "Direct line of sight to regional police outpost."]
       },
       policeStations: [
         {
-          name: "Vanguard Precinct Command Center",
+          name: "Dwaraka Nagar Police Station",
           location: { lat: startLat + deltaLat * 0.5, lng: startLng + deltaLng * 0.5 },
-          address: "312 W Randolph St, Chicago, IL",
+          address: "Dwaraka Nagar, Visakhapatnam, India",
           distanceMeters: 450,
           status: "Active 24/7"
         },
         {
-          name: "Security Outpost Station 4B",
+          name: "Beach Road Sentry Post",
           location: { lat: startLat + deltaLat * 0.8, lng: startLng + deltaLng * 0.2 },
-          address: "100 N Michigan Ave, Chicago, IL",
+          address: "RK Beach Promenade, Visakhapatnam, India",
           distanceMeters: 780,
           status: "Patrolled Zone"
         }
@@ -552,7 +552,7 @@ export const generateSafeRoute = async (origin: string, destination: string, avo
   
       Please generate and return a JSON safe routing response.
       
-      If the city is Chicago or coordinates overlap, use realistic locations like State St, Madison St, Michigan Ave, etc. 
+      If the city is Visakhapatnam (Vizag) or coordinates overlap, use realistic locations like RK Beach Road, Dwaraka Nagar, MVP Colony, Jagadamba Centre, Asilmetta, Gajuwaka, etc. 
       For any city name requested (e.g., San Francisco, New York, London, Paris, Tokyo, Sydney), generate accurate or highly plausible coordinates and street descriptions.
       
       Return:
@@ -676,12 +676,12 @@ export const generateSafeRoute = async (origin: string, destination: string, avo
     return JSON.parse(response.text.trim());
   } catch (e) {
     console.warn("[Gemini API Error] generateSafeRoute fallback:", e);
-    // Chicago coordinate defaults
-    const startLat = 41.8818;
-    const startLng = -87.6278;
+    // Visakhapatnam coordinate defaults
+    const startLat = 17.6868;
+    const startLng = 83.2185;
     return {
       standardRoute: {
-        name: "Direct Route (State St Corridor)",
+        name: "Direct Route (Jagadamba Center Corridor)",
         path: [
           { lat: startLat, lng: startLng },
           { lat: startLat + 0.002, lng: startLng },
@@ -690,10 +690,10 @@ export const generateSafeRoute = async (origin: string, destination: string, avo
         safetyScore: 80,
         safetyFactors: { lighting: 85, policePresence: 70, isolationAvoidance: 75, activeSentries: 65 },
         description: "Direct walkway under regional telemetry surveillance.",
-        warnings: ["Minor unlit sections around Monroe alley."]
+        warnings: ["Minor unlit sections around Dwaraka Nagar alley."]
       },
       safeRoute: {
-        name: "Guarded Corridor (Michigan Ave detour)",
+        name: "Guarded Corridor (RK Beach Ave detour)",
         path: [
           { lat: startLat, lng: startLng },
           { lat: startLat, lng: startLng + 0.004 },
@@ -706,9 +706,9 @@ export const generateSafeRoute = async (origin: string, destination: string, avo
       },
       policeStations: [
         {
-          name: "Vanguard Command Outpost Randolph",
+          name: "Vanguard Command Outpost Dwaraka Nagar",
           location: { lat: startLat + 0.003, lng: startLng + 0.002 },
-          address: " Randolph St & State St, Chicago",
+          address: "Dwaraka Nagar Road, Visakhapatnam",
           distanceMeters: 300,
           status: "Active 24/7"
         }

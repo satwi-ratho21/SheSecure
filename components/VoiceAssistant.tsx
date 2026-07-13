@@ -67,6 +67,26 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
   const animationFrameRef = useRef<number | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
+  // Synchronization refs to avoid stale closures in web Speech API and audio recorder
+  const bgListeningActiveRef = useRef(bgListeningActive);
+  const isListeningRef = useRef(isListening);
+  const safeWordRef = useRef(safeWord);
+  const actionSosRef = useRef(actionSos);
+  const actionAlertGuardiansRef = useRef(actionAlertGuardians);
+  const actionRecordRef = useRef(actionRecord);
+  const actionUploadRef = useRef(actionUpload);
+  const safeWordTypeRef = useRef(safeWordType);
+  const isTriggeringRef = useRef(false);
+
+  useEffect(() => { bgListeningActiveRef.current = bgListeningActive; }, [bgListeningActive]);
+  useEffect(() => { isListeningRef.current = isListening; }, [isListening]);
+  useEffect(() => { safeWordRef.current = safeWord; }, [safeWord]);
+  useEffect(() => { actionSosRef.current = actionSos; }, [actionSos]);
+  useEffect(() => { actionAlertGuardiansRef.current = actionAlertGuardians; }, [actionAlertGuardians]);
+  useEffect(() => { actionRecordRef.current = actionRecord; }, [actionRecord]);
+  useEffect(() => { actionUploadRef.current = actionUpload; }, [actionUpload]);
+  useEffect(() => { safeWordTypeRef.current = safeWordType; }, [safeWordType]);
+
   // Load clips from local storage
   useEffect(() => {
     const savedClips = localStorage.getItem('vs_recorded_clips');
@@ -108,6 +128,12 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
   useEffect(() => {
     const SpeechRecognitionClass = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (SpeechRecognitionClass) {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {}
+      }
+
       const rec = new SpeechRecognitionClass();
       rec.continuous = true;
       rec.interimResults = true;
@@ -128,7 +154,12 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
         const currentText = (finalTranscript || interimTranscript).toLowerCase().trim();
         if (currentText) {
           setTranscription(currentText);
-          checkSafeWordMatch(currentText);
+          
+          // Check for safeword match
+          const activeWord = safeWordRef.current.toLowerCase().trim();
+          if (currentText.includes(activeWord)) {
+            triggerSafeWordProtocol();
+          }
         }
       };
 
@@ -140,8 +171,8 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
       };
 
       rec.onend = () => {
-        // Auto-restart if bgListening is active
-        if (bgListeningActive || isListening) {
+        // Auto-restart if bgListening or isListening is active using refs
+        if (bgListeningActiveRef.current || isListeningRef.current) {
           try {
             recognitionRef.current.start();
           } catch (e) {
@@ -151,8 +182,23 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
       };
 
       recognitionRef.current = rec;
+
+      // Start recognition if listening state is already active
+      if (bgListeningActiveRef.current || isListeningRef.current) {
+        try {
+          rec.start();
+        } catch (e) {}
+      }
     }
-  }, [language, bgListeningActive, isListening, safeWord]);
+
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {}
+      }
+    };
+  }, [language]);
 
   // Clean speaking status timer
   useEffect(() => {
@@ -220,14 +266,20 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
   // Handler for direct micro recordings (MediaRecorder)
   const startRecordingAudio = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      streamRef.current = stream;
+      // Reuse the current stream if active and has audio track to avoid dual acquisition conflicts
+      let stream = streamRef.current;
+      const isStreamActive = stream && stream.active && stream.getAudioTracks().length > 0;
+
+      if (!isStreamActive) {
+        stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        streamRef.current = stream;
+      }
       setAudioPermission(true);
 
-      startAudioAnalyzer(stream);
+      startAudioAnalyzer(stream!);
 
       audioChunksRef.current = [];
-      const mediaRecorder = new MediaRecorder(stream);
+      const mediaRecorder = new MediaRecorder(stream!);
       
       mediaRecorder.ondataavailable = (event) => {
         if (event.data.size > 0) {
@@ -256,14 +308,16 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
             isUploaded: false
           };
 
-          const updatedClips = [newClip, ...recordedClips];
-          setRecordedClips(updatedClips);
-          saveClips(updatedClips);
-
-          // If configured to auto upload on trigger, post it
-          if (actionUpload) {
-            uploadClipToEvidence(newClip);
-          }
+          setRecordedClips((prevClips) => {
+            const updatedClips = [newClip, ...prevClips];
+            saveClips(updatedClips);
+            
+            // If configured to auto upload on trigger, post it
+            if (actionUploadRef.current) {
+              uploadClipToEvidence(newClip);
+            }
+            return updatedClips;
+          });
         };
         reader.readAsDataURL(audioBlob);
       };
@@ -279,10 +333,15 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
 
   const stopRecordingAudio = () => {
     if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
-      mediaRecorderRef.current.stop();
+      try {
+        mediaRecorderRef.current.stop();
+      } catch (e) {}
     }
     setIsRecording(false);
-    stopMicrophoneNodes();
+    // Only stop microphone nodes if NOT continuous background/active listening
+    if (!bgListeningActiveRef.current && !isListeningRef.current) {
+      stopMicrophoneNodes();
+    }
   };
 
   // Upload Voice Clip directly to evidence locker database
@@ -301,7 +360,7 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
           type: 'AUDIO',
           title: clip.title,
           location: 'Vanguard Active Voice Node',
-          summary: `Vocal recording triggered automatically by Safe Word match on standard client device. Detected keyword phrase: "${safeWord}".`,
+          summary: `Vocal recording triggered automatically by Safe Word match on standard client device. Detected keyword phrase: "${safeWordRef.current}".`,
           linkedIncident: 'Safe-Word Security Protocol',
           fileName: `vanguard_safeword_${clip.id.toLowerCase()}.mp3`,
           fileSize: clip.duration === '0s' ? '1.2 MB' : `${(parseInt(clip.duration) * 0.1).toFixed(2)} MB`,
@@ -313,11 +372,13 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
       const data = await res.json();
       if (data.success && data.record) {
         // Mark clip as uploaded
-        const updated = recordedClips.map(c => 
-          c.id === clip.id ? { ...c, isUploaded: true, uploadedId: data.record.id } : c
-        );
-        setRecordedClips(updated);
-        saveClips(updated);
+        setRecordedClips(prev => {
+          const updated = prev.map(c => 
+            c.id === clip.id ? { ...c, isUploaded: true, uploadedId: data.record.id } : c
+          );
+          saveClips(updated);
+          return updated;
+        });
       }
     } catch (e) {
       console.error("Cloud storage backup pipeline failed", e);
@@ -325,14 +386,16 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
   };
 
   const deleteClip = (id: string) => {
-    const filtered = recordedClips.filter(c => c.id !== id);
-    setRecordedClips(filtered);
-    saveClips(filtered);
+    setRecordedClips(prev => {
+      const filtered = prev.filter(c => c.id !== id);
+      saveClips(filtered);
+      return filtered;
+    });
   };
 
   // Safe Word match checking engine
   const checkSafeWordMatch = (transcriptText: string) => {
-    const activeWord = safeWord.toLowerCase().trim();
+    const activeWord = safeWordRef.current.toLowerCase().trim();
     if (transcriptText.toLowerCase().includes(activeWord)) {
       triggerSafeWordProtocol();
     }
@@ -340,6 +403,12 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
 
   // The actual Safe Word Protocol trigger
   const triggerSafeWordProtocol = () => {
+    if (isTriggeringRef.current) return;
+    isTriggeringRef.current = true;
+    setTimeout(() => {
+      isTriggeringRef.current = false;
+    }, 12000); // 12s cooldown window
+
     setTriggerFlasher(true);
     setTimeout(() => setTriggerFlasher(false), 5000);
 
@@ -361,16 +430,17 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
       // Audio context block
     }
 
-    // 2. Trigger Actions
-    if (actionSos) {
-      if (safeWordType === 'COVERT' && onSilentEmergencyDetected) {
-        onSilentEmergencyDetected(`Covert safe word trigger matched keyword: "${safeWord}". Safe protocols active.`);
-      } else {
-        onEmergencyDetected();
-      }
+    // 2. Trigger Actions - Enforce distress broadcast SOS as requested
+    const currentSafeWord = safeWordRef.current;
+    const currentSafeWordType = safeWordTypeRef.current;
+
+    if (currentSafeWordType === 'COVERT' && onSilentEmergencyDetected) {
+      onSilentEmergencyDetected(`Covert safe word trigger matched keyword: "${currentSafeWord}". Safe protocols active.`);
+    } else {
+      onEmergencyDetected();
     }
 
-    if (actionAlertGuardians) {
+    if (actionAlertGuardiansRef.current) {
       // Simulate real dispatch event to trust network via notification
       const dispatchLog = {
         time: new Date().toISOString(),
@@ -385,17 +455,15 @@ const VoiceAssistant: React.FC<VoiceAssistantProps> = ({
       } catch (e) {}
     }
 
-    if (actionRecord) {
-      // Auto capture micro recording of safe word aftermath
-      startRecordingAudio();
-      setTimeout(() => {
-        stopRecordingAudio();
-      }, 5000); // Record exactly 5 seconds
-    }
+    // 3. Force auto capture incident recording of safe word aftermath as requested (At least 1 minute)
+    startRecordingAudio();
+    setTimeout(() => {
+      stopRecordingAudio();
+    }, 60000); // Record exactly 60 seconds (1 minute)
 
     setAnalysis({
       intent: 'EMERGENCY',
-      voiceResponse: safeWordType === 'COVERT' 
+      voiceResponse: currentSafeWordType === 'COVERT' 
         ? "Covert silent security protocol initialized. Environmental logs locked into Vanguard ledger."
         : "ALERT DETECTED! Safe word triggered. Direct distress broadcast and tactical beacons activated.",
       isCritical: true

@@ -291,11 +291,11 @@ const EvidenceLocker: React.FC<EvidenceLockerProps> = ({ profile, isEmergencyMod
           },
           () => {
             // fallback coords
-            setGpsCoordinates({ lat: 41.8781, lng: -87.6298 });
+            setGpsCoordinates({ lat: 17.6868, lng: 83.2185 });
           }
         );
       } else {
-        setGpsCoordinates({ lat: 41.8781, lng: -87.6298 });
+        setGpsCoordinates({ lat: 17.6868, lng: 83.2185 });
       }
 
       // Tick recording duration

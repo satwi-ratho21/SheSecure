@@ -1,0 +1,151 @@
+{
+  "volunteers": [
+    {
+      "id": "vol_1",
+      "name": "Aarav Sharma",
+      "email": "aarav.sharma@rescue.vanguard",
+      "phone": "+91 98111 55566",
+      "isVerified": true,
+      "verificationStatus": "VERIFIED",
+      "credentialsInfo": "Paramedic (EMT-B certified), 5 years active ambulance and emergency duty in Vizag.",
+      "skills": [
+        "First Aid",
+        "CPR",
+        "Trauma Care",
+        "Defensive Driving"
+      ],
+      "latitude": 17.6885,
+      "longitude": 83.2195,
+      "isActiveDuty": true,
+      "rating": 4.9
+    },
+    {
+      "id": "vol_2",
+      "name": "Priya Patel",
+      "email": "priya.patel@rescue.vanguard",
+      "phone": "+91 98222 66677",
+      "isVerified": true,
+      "verificationStatus": "VERIFIED",
+      "credentialsInfo": "Red Cross Disaster Relief Volunteer, Certified CPR instructor in Visakhapatnam.",
+      "skills": [
+        "CPR",
+        "Crisis Mediation",
+        "Temporary Shelter Coordination"
+      ],
+      "latitude": 17.6812,
+      "longitude": 83.2210,
+      "isActiveDuty": true,
+      "rating": 4.8
+    },
+    {
+      "id": "vol_3",
+      "name": "Rajesh Kumar",
+      "email": "rajesh.kumar@rescue.vanguard",
+      "phone": "+91 98333 77788",
+      "isVerified": false,
+      "verificationStatus": "PENDING",
+      "credentialsInfo": "Former security supervisor, seeking community integration and safety patrols.",
+      "skills": [
+        "Physical Security",
+        "Crowd Control"
+      ],
+      "latitude": 17.7210,
+      "longitude": 83.2240,
+      "isActiveDuty": false,
+      "rating": 4
+    },
+    {
+      "id": "vol_4",
+      "name": "Aditi Rao",
+      "email": "aditi.rao@rescue.vanguard",
+      "phone": "+91 98444 88899",
+      "isVerified": true,
+      "verificationStatus": "VERIFIED",
+      "credentialsInfo": "Mental health crisis counselor, active social worker in Visakhapatnam.",
+      "skills": [
+        "Crisis Mediation",
+        "Psychological First Aid",
+        "De-escalation"
+      ],
+      "latitude": 17.7040,
+      "longitude": 83.2200,
+      "isActiveDuty": true,
+      "rating": 5
+    }
+  ],
+  "broadcasts": [
+    {
+      "id": "broad_1",
+      "message": "SIGHTING WARNING: Suspicious activity spotted near RK Beach Road alleyway. Lone walkers please take well-lit routes.",
+      "locationName": "RK Beach Road, Visakhapatnam",
+      "latitude": 17.6875,
+      "longitude": 83.2198,
+      "severity": "HIGH",
+      "timestamp": "2026-07-13T14:59:05.765Z",
+      "senderName": "Vizag Vanguard Dispatch"
+    }
+  ],
+  "helpRequests": [
+    {
+      "id": "help_1",
+      "category": "MEDICAL",
+      "description": "Subject collapsed near Dwaraka Nagar RTC Complex Gate 4. Unresponsive but breathing. First-aid assistance requested.",
+      "locationName": "Dwaraka Nagar RTC Complex - Gate 4",
+      "latitude": 17.7041,
+      "longitude": 83.2215,
+      "reporterName": "Priya Patel",
+      "reporterPhone": "+91 98222 66677",
+      "urgency": "CRITICAL",
+      "status": "CLAIMED",
+      "claimedByVolunteerId": "vol_1",
+      "claimedByVolunteerName": "Aarav Sharma",
+      "timestamp": "2026-07-13T15:29:05.765Z"
+    },
+    {
+      "id": "help_2",
+      "category": "SECURITY",
+      "description": "Intimidation incident. Followed by a suspicious group of individuals. Seeking companion escort to nearest Safe Zone.",
+      "locationName": "Jagadamba Centre Parking, Floor 2",
+      "latitude": 17.6820,
+      "longitude": 83.2205,
+      "reporterName": "Amit Patel",
+      "reporterPhone": "+91 91234 56789",
+      "urgency": "HIGH",
+      "status": "RESOLVED",
+      "claimedByVolunteerId": "vol_2",
+      "claimedByVolunteerName": "Priya Patel",
+      "timestamp": "2026-07-13T13:59:05.765Z"
+    },
+    {
+      "id": "help_3",
+      "category": "ACCIDENT",
+      "description": "Two-wheeler collision in the intersection. Minor injuries, but traffic is blocked and dangerous. Need safety volunteers to coordinate.",
+      "locationName": "Intersection of MVP Double Road & Highway",
+      "latitude": 17.7230,
+      "longitude": 83.2250,
+      "reporterName": "Siddharth Sen",
+      "reporterPhone": "+91 96111 22233",
+      "urgency": "MEDIUM",
+      "status": "PENDING",
+      "claimedByVolunteerId": null,
+      "claimedByVolunteerName": null,
+      "timestamp": "2026-07-13T15:44:05.765Z"
+    }
+  ],
+  "witnessLogs": [
+    {
+      "id": "wit_1",
+      "helpRequestId": "help_1",
+      "testimony": "I was walking to Dwaraka Nagar RTC Complex when the individual collapsed. Aarav Sharma arrived in under 4 minutes with a medical kit and immediately stabilized the situation. Excellent response.",
+      "witnessName": "Sunita Sen",
+      "timestamp": "2026-07-13T15:39:05.765Z"
+    },
+    {
+      "id": "wit_2",
+      "helpRequestId": "help_3",
+      "testimony": "A delivery driver turned sharply and collided with another bike. The rider is holding their ankle. Glad Vanguard safety alerts are up so volunteers can help direct traffic.",
+      "witnessName": "Thomas K.",
+      "timestamp": "2026-07-13T15:49:05.765Z"
+    }
+  ]
+}

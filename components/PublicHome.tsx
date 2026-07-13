@@ -69,14 +69,14 @@ const PublicHome: React.FC<PublicHomeProps> = ({ onGetStarted }) => {
   const stories = [
     {
       name: "Valerie K.",
-      role: "Sovereign Operator [Chicago Mesh]",
+      role: "Sovereign Operator [Vizag Mesh]",
       comment: "Vanguard saved me during a late-night commute transit failure. I tapped the Covert Alarm, and the dynamic route engine safely navigated me to a verified emergency container pod within 3 minutes.",
       rating: 5,
       date: "May 2026"
     },
     {
       name: "Tanya M.",
-      role: "Protected Node [Mumbai Guardian Circle]",
+      role: "Protected Node [Visakhapatnam Guardian Circle]",
       comment: "The Human Trafficking warning nodes in the app helped our advocacy group identify and immediately report forced passport coercion tactics at a major transit portal. Truly tactical tech.",
       rating: 5,
       date: "April 2026"

@@ -443,8 +443,8 @@ const CommunityRescueNetwork: React.FC<CommunityRescueNetworkProps> = ({ profile
         category: reqCategory,
         description: reqDesc,
         locationName: reqLocation,
-        latitude: 41.8781 + (Math.random() - 0.5) * 0.015,
-        longitude: -87.6298 + (Math.random() - 0.5) * 0.015,
+        latitude: 17.6868 + (Math.random() - 0.5) * 0.015,
+        longitude: 83.2185 + (Math.random() - 0.5) * 0.015,
         reporterName: profile?.name || "Anonymous Resident",
         reporterPhone: profile?.trustCircle?.[0]?.phone || "N/A",
         urgency: reqUrgency
@@ -479,8 +479,8 @@ const CommunityRescueNetwork: React.FC<CommunityRescueNetworkProps> = ({ profile
       const payload = {
         message: broadMsg,
         locationName: broadLocation,
-        latitude: 41.8781 + (Math.random() - 0.5) * 0.02,
-        longitude: -87.6298 + (Math.random() - 0.5) * 0.02,
+        latitude: 17.6868 + (Math.random() - 0.5) * 0.02,
+        longitude: 83.2185 + (Math.random() - 0.5) * 0.02,
         severity: broadSeverity,
         senderName: profile?.name || "Operator"
       };
@@ -588,8 +588,8 @@ const CommunityRescueNetwork: React.FC<CommunityRescueNetworkProps> = ({ profile
         body: JSON.stringify({
           id: myVolunteerProfile.id,
           isActiveDuty: nextDuty,
-          latitude: 41.8781 + (Math.random() - 0.5) * 0.015,
-          longitude: -87.6298 + (Math.random() - 0.5) * 0.015
+          latitude: 17.6868 + (Math.random() - 0.5) * 0.015,
+          longitude: 83.2185 + (Math.random() - 0.5) * 0.015
         })
       });
 
@@ -687,9 +687,9 @@ const CommunityRescueNetwork: React.FC<CommunityRescueNetworkProps> = ({ profile
       socketRef.current.emit('emergency-broadcast', {
         id: "broad_sim_" + Date.now(),
         message: "SIMULATION CONSOLE: Highly critical weather/infrastructure alert issued. Extreme winds en route.",
-        locationName: "Downtown North Transit Corridor",
-        latitude: 41.8844,
-        longitude: -87.6291,
+        locationName: "Visakhapatnam Beach Transit Corridor",
+        latitude: 17.6914,
+        longitude: 83.2215,
         severity: "CRITICAL",
         timestamp: new Date().toISOString(),
         senderName: "Digital Sentry Simulator"
@@ -699,11 +699,11 @@ const CommunityRescueNetwork: React.FC<CommunityRescueNetworkProps> = ({ profile
         id: "help_sim_" + Date.now(),
         category: "SECURITY",
         description: "SIMULATION CONSOLE: Distress trigger en route. Civilian requests rapid companion visual guard.",
-        locationName: "Safe Sector Park Walkway",
-        latitude: 41.8765,
-        longitude: -87.6212,
-        reporterName: "Alice S. (Mock Client)",
-        reporterPhone: "+1 (555) 998-1020",
+        locationName: "RK Beach Central Park Walkway",
+        latitude: 17.6850,
+        longitude: 83.2190,
+        reporterName: "Anjali S. (Mock Client)",
+        reporterPhone: "+91 99881 10200",
         urgency: "HIGH",
         status: "PENDING",
         claimedByVolunteerId: null,
@@ -921,8 +921,8 @@ const CommunityRescueNetwork: React.FC<CommunityRescueNetworkProps> = ({ profile
 
                   {/* Volunteers positions */}
                   {volunteers.filter(v => v.isActiveDuty).map((vol, i) => {
-                    const xOffset = ((vol.latitude - 41.8781) * 3500) % 150;
-                    const yOffset = ((vol.longitude - (-87.6298)) * 3500) % 150;
+                    const xOffset = ((vol.latitude - 17.6868) * 3500) % 150;
+                    const yOffset = ((vol.longitude - 83.2185) * 3500) % 150;
                     return (
                       <div 
                         key={vol.id}
@@ -939,8 +939,8 @@ const CommunityRescueNetwork: React.FC<CommunityRescueNetworkProps> = ({ profile
 
                   {/* Help requests pending positions */}
                   {helpRequests.filter(r => r.status === 'PENDING').map((req, i) => {
-                    const xOffset = ((req.latitude - 41.8781) * 3200) % 130;
-                    const yOffset = ((req.longitude - (-87.6298)) * 3200) % 130;
+                    const xOffset = ((req.latitude - 17.6868) * 3200) % 130;
+                    const yOffset = ((req.longitude - 83.2185) * 3200) % 130;
                     return (
                       <div 
                         key={req.id}

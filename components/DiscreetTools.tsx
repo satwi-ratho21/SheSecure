@@ -550,8 +550,8 @@ const DiscreetTools: React.FC<DiscreetToolsProps> = ({ onLaunchDecoy }) => {
     const jwtToken = localStorage.getItem('vs_jwt_token');
     if (!jwtToken) return;
 
-    const lat = 41.8781;
-    const lng = -87.6298;
+    const lat = 17.6868;
+    const lng = 83.2185;
 
     const sendData = async (coords: { lat: number, lng: number }) => {
       try {

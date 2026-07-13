@@ -128,8 +128,8 @@ export const DecoyOverlay: React.FC<DecoyOverlayProps> = ({ isActive, onClose, p
     }
 
     // Capture location to transmit
-    let lat = 41.8781;
-    let lng = -87.6298;
+    let lat = 17.6868;
+    let lng = 83.2185;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (pos) => {

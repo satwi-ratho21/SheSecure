@@ -149,8 +149,8 @@ export const SafetyIntelligenceDashboard: React.FC = () => {
 
     if (!mapContainerRef.current) return;
 
-    // Chicago Downtown coordinates center
-    const defaultCenter: [number, number] = [41.8781, -87.6298];
+    // Visakhapatnam coordinates center
+    const defaultCenter: [number, number] = [17.6868, 83.2185];
     
     // Initialize map if not yet instantiated
     if (!mapRef.current) {

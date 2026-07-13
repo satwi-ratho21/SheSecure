@@ -1,0 +1,34 @@
+[
+  {
+    "id": "TRF-KID-40291",
+    "category": "Kidnapping",
+    "location": "Gajuwaka Highway Checkpoint, Visakhapatnam",
+    "vehicleNumber": "AP 31 AW 4029 (Dark gray cargo van)",
+    "description": "Observed dynamic handler withholding credentials of a teenage female crying near cargo transport. Vehicle sped off when safety volunteers rounded the terminal.",
+    "photoUrl": "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&q=80&w=600",
+    "cloudinaryPublicId": "vanguard_reports_upload_t1882",
+    "isAnonymous": true,
+    "reporterName": "Anonymous",
+    "reporterContact": "None (Secured Tor connection)",
+    "status": "SUBMITTED",
+    "timestamp": "2026-05-27T08:12:00Z",
+    "urgency": "CRITICAL",
+    "adminNotes": "Dispatched tactical checkpoint sensors to capture visual match of gray cargo van in Gajuwaka."
+  },
+  {
+    "id": "TRF-SUS-99212",
+    "category": "Suspicious activity",
+    "location": "Visakhapatnam Port Area Phase III, Vizag",
+    "vehicleNumber": "AP 31 AZ 9831",
+    "description": "Continuous transfers of people in locked vehicle setups under heavy armed escort outside standard shift guidelines.",
+    "photoUrl": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=600",
+    "cloudinaryPublicId": "vanguard_reports_upload_t7821",
+    "isAnonymous": false,
+    "reporterName": "Port Area Community Watch Guard",
+    "reporterContact": "+91 95400 11223",
+    "status": "INVESTIGATING",
+    "timestamp": "2026-05-26T14:45:00Z",
+    "urgency": "HIGH",
+    "adminNotes": "Coordinates logged with district patrol. Undercover drone surveillance dispatched near port area."
+  }
+]

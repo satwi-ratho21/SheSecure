@@ -30,6 +30,12 @@ const CyberSafetyReporting: React.FC = () => {
   const [errorText, setErrorText] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'TRACK' | 'NEW_REPORT' | 'EDUCATION'>('TRACK');
 
+  // Passcode authentication states
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passcode, setPasscode] = useState('');
+  const [passcodeError, setPasscodeError] = useState<string | null>(null);
+  const [isDecrypting, setIsDecrypting] = useState(false);
+
   // Form states
   const [formType, setFormType] = useState<'FAKE_PROFILE' | 'SEXTORTION' | 'CYBER_STALKING'>('FAKE_PROFILE');
   const [reportedUser, setReportedUser] = useState('');
@@ -81,6 +87,45 @@ const CyberSafetyReporting: React.FC = () => {
       setLoading(false);
     }
   };
+
+  const handleKeypadPress = (num: string) => {
+    setPasscodeError(null);
+    if (passcode.length < 4) {
+      const nextCode = passcode + num;
+      setPasscode(nextCode);
+      if (nextCode === '2468') {
+        setIsDecrypting(true);
+        setTimeout(() => {
+          setIsAuthenticated(true);
+          setIsDecrypting(false);
+          setPasscode('');
+        }, 1000);
+      } else if (nextCode.length === 4) {
+        setTimeout(() => {
+          setPasscodeError("DECRYPTION FAIL: ACCESS CREDENTIALS REJECTED");
+          setPasscode('');
+        }, 300);
+      }
+    }
+  };
+
+  const handleBackspace = () => {
+    setPasscodeError(null);
+    setPasscode(prev => prev.slice(0, -1));
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key >= '0' && e.key <= '9') {
+        handleKeypadPress(e.key);
+      } else if (e.key === 'Backspace') {
+        handleBackspace();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [passcode, isAuthenticated]);
 
   useEffect(() => {
     fetchComplaints();
@@ -299,6 +344,112 @@ const CyberSafetyReporting: React.FC = () => {
   const activeReview = complaints.filter(c => c.status === 'UNDER_REVIEW').length;
   const actionTakenCount = complaints.filter(c => c.status === 'ACTION_TAKEN').length;
   const pendingCount = complaints.filter(c => c.status === 'SUBMITTED').length;
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-[80vh] flex flex-col items-center justify-center animate-in fade-in duration-500 py-12 px-4" id="cyber-safety-lock-screen">
+        <div className="w-full max-w-md glass-card p-8 rounded-[40px] border-indigo-500/20 shadow-2xl relative overflow-hidden text-center space-y-8 bg-slate-950/40 backdrop-blur-xl">
+          <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/5 rounded-full blur-[40px] pointer-events-none" />
+          <div className="absolute -bottom-10 -left-10 w-48 h-48 bg-red-500/5 rounded-full blur-[40px] pointer-events-none" />
+
+          {/* Secure Lock Header */}
+          <div className="space-y-3">
+            <div className="mx-auto w-16 h-16 bg-slate-950/85 border border-white/10 rounded-2xl flex items-center justify-center text-indigo-400 relative shadow-[0_0_15px_rgba(99,102,241,0.15)]">
+              {isDecrypting ? (
+                <RefreshCw className="w-8 h-8 text-emerald-400 animate-spin" />
+              ) : passcodeError ? (
+                <Lock className="w-8 h-8 text-red-500 animate-bounce" />
+              ) : (
+                <Lock className="w-8 h-8 text-indigo-400" />
+              )}
+            </div>
+            
+            <div className="space-y-1">
+              <h3 className="text-xl font-black text-white tracking-tight uppercase">CYBER SECURITY VAULT</h3>
+              <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.25em] mono">Restricted Tactical Partition</p>
+            </div>
+          </div>
+
+          {/* Passcode Dots Indicator */}
+          <div className="space-y-4">
+            <div className="flex justify-center gap-4 py-2">
+              {[0, 1, 2, 3].map((index) => (
+                <div 
+                  key={index}
+                  className={`w-4 h-4 rounded-full border-2 transition-all duration-200 ${
+                    isDecrypting 
+                      ? 'bg-emerald-500 border-emerald-400 scale-110 shadow-[0_0_10px_rgba(16,185,129,0.5)]'
+                      : passcode.length > index 
+                        ? 'bg-indigo-500 border-indigo-400 scale-110 shadow-[0_0_10px_rgba(99,102,241,0.5)]' 
+                        : 'bg-slate-950 border-slate-700'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {passcodeError ? (
+              <p className="text-[10px] text-red-500 font-black uppercase tracking-wider mono animate-pulse">
+                {passcodeError}
+              </p>
+            ) : isDecrypting ? (
+              <p className="text-[10px] text-emerald-400 font-black uppercase tracking-wider mono animate-pulse">
+                DECRYPTING DOSSIER MATRIX...
+              </p>
+            ) : (
+              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mono">
+                Enter secure 4-digit passcode
+              </p>
+            )}
+          </div>
+
+          {/* Visual Numeric Keypad */}
+          <div className="grid grid-cols-3 gap-3 max-w-[280px] mx-auto pt-2">
+            {['1', '2', '3', '4', '5', '6', '7', '8', '9'].map((num) => (
+              <button
+                key={num}
+                type="button"
+                onClick={() => handleKeypadPress(num)}
+                disabled={isDecrypting}
+                className="w-16 h-16 rounded-2xl bg-slate-950 border border-white/5 text-lg font-black text-white hover:border-indigo-500/40 hover:bg-indigo-500/10 active:scale-95 transition-all flex items-center justify-center disabled:opacity-50 cursor-pointer"
+              >
+                {num}
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={() => setPasscode('')}
+              disabled={isDecrypting || passcode.length === 0}
+              className="w-16 h-16 rounded-2xl bg-slate-950/40 border border-white/5 text-[10px] font-black text-slate-400 hover:text-red-400 hover:border-red-500/20 active:scale-95 transition-all flex items-center justify-center disabled:opacity-30 cursor-pointer"
+            >
+              CLEAR
+            </button>
+            <button
+              type="button"
+              onClick={() => handleKeypadPress('0')}
+              disabled={isDecrypting}
+              className="w-16 h-16 rounded-2xl bg-slate-950 border border-white/5 text-lg font-black text-white hover:border-indigo-500/40 hover:bg-indigo-500/10 active:scale-95 transition-all flex items-center justify-center disabled:opacity-50 cursor-pointer"
+            >
+              0
+            </button>
+            <button
+              type="button"
+              onClick={handleBackspace}
+              disabled={isDecrypting || passcode.length === 0}
+              className="w-16 h-16 rounded-2xl bg-slate-950/40 border border-white/5 text-[10px] font-black text-slate-400 hover:text-indigo-400 hover:border-indigo-500/20 active:scale-95 transition-all flex items-center justify-center disabled:opacity-30 cursor-pointer"
+            >
+              BACK
+            </button>
+          </div>
+
+          {/* Additional info footer */}
+          <div className="pt-4 border-t border-white/5 flex flex-col items-center gap-1">
+            <span className="text-[8px] font-black text-slate-500 uppercase tracking-widest mono">SECURE SENTRY SYNC CHRONOLOGY v2.6</span>
+            <span className="text-[8px] text-zinc-600 font-bold uppercase tracking-wider mono">Unauthorized access triggers visual beacon alert.</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-10 animate-in fade-in duration-700 max-w-6xl mx-auto pb-40" id="cyber-safety-reporting-container">

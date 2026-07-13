@@ -1,0 +1,163 @@
+[
+  {
+    "uid": "uid_ogz3vddt",
+    "email": "satwi033@gmail.com",
+    "passwordHash": "$2b$10$iQMwJKF3fmrXIaSckWbLde0N2RauokYKx/oKut2AcLZV.w.AV01ga",
+    "name": "Satwinder Singh",
+    "role": "ADMIN",
+    "isVerified": true,
+    "safetyId": "VS-410409",
+    "trustCircle": [
+      {
+        "name": "Gurpreet Singh",
+        "phone": "+91 98765 43210",
+        "relation": "BROTHER",
+        "isBroadcasting": true,
+        "lastSeen": "2 mins ago"
+      },
+      {
+        "name": "Inspector Sharma",
+        "phone": "+91 99887 76655",
+        "relation": "GUARDIAN",
+        "isBroadcasting": false,
+        "lastSeen": "1 hr ago"
+      }
+    ],
+    "bloodType": "O+",
+    "medicalConditions": "None",
+    "hasCompletedOnboarding": true,
+    "avatarUrl": ""
+  },
+  {
+    "uid": "uid_7maphy9x",
+    "email": "user@vanguard.mesh",
+    "passwordHash": "$2b$10$mKOlYJg27WLHYlK37kohgOoszKuDWio63OyDvRqJpe/U5k2wbFp9y",
+    "name": "Amit Patel",
+    "role": "USER",
+    "isVerified": true,
+    "safetyId": "VS-492037",
+    "trustCircle": [
+      {
+        "name": "Priya Patel",
+        "phone": "+91 91234 56789",
+        "relation": "SISTER",
+        "isBroadcasting": true,
+        "lastSeen": "2 mins ago"
+      },
+      {
+        "name": "Inspector Sharma",
+        "phone": "+91 99887 76655",
+        "relation": "GUARDIAN",
+        "isBroadcasting": false,
+        "lastSeen": "1 hr ago"
+      }
+    ],
+    "bloodType": "O+",
+    "medicalConditions": "None",
+    "hasCompletedOnboarding": true,
+    "avatarUrl": ""
+  },
+  {
+    "uid": "uid_nl4ne7jx",
+    "email": "volunteer@vanguard.mesh",
+    "passwordHash": "$2b$10$uQ5qwgUvoAzC.tSwvfffqOKg812u/0I/BxmI93RxhuhoIJnbqhAna",
+    "name": "Rajesh Kumar",
+    "role": "VOLUNTEER",
+    "isVerified": true,
+    "safetyId": "VS-580988",
+    "trustCircle": [
+      {
+        "name": "Sunita Kumar",
+        "phone": "+91 98111 22233",
+        "relation": "SPOUSE",
+        "isBroadcasting": true,
+        "lastSeen": "5 mins ago"
+      },
+      {
+        "name": "Inspector Sharma",
+        "phone": "+91 99887 76655",
+        "relation": "GUARDIAN",
+        "isBroadcasting": false,
+        "lastSeen": "1 hr ago"
+      }
+    ],
+    "bloodType": "A+",
+    "medicalConditions": "None",
+    "hasCompletedOnboarding": true,
+    "avatarUrl": ""
+  },
+  {
+    "uid": "uid_kuvwjd7m",
+    "email": "police@vanguard.mesh",
+    "passwordHash": "$2b$10$YImkyRUaA7nm1A5KyWcpMevQWCXX/f4pxK5Lo4.qILdS6kzfvQhR6",
+    "name": "Inspector Vikram Rathore",
+    "role": "POLICE",
+    "isVerified": true,
+    "safetyId": "VS-199355",
+    "trustCircle": [
+      {
+        "name": "Gurpreet Singh",
+        "phone": "+91 98765 43210",
+        "relation": "BROTHER",
+        "isBroadcasting": true,
+        "lastSeen": "2 mins ago"
+      },
+      {
+        "name": "Inspector Sharma",
+        "phone": "+91 99887 76655",
+        "relation": "GUARDIAN",
+        "isBroadcasting": false,
+        "lastSeen": "1 hr ago"
+      }
+    ],
+    "bloodType": "B+",
+    "medicalConditions": "None",
+    "hasCompletedOnboarding": true,
+    "avatarUrl": ""
+  },
+  {
+    "uid": "uid_ocr37b72",
+    "email": "admin@vanguard.mesh",
+    "passwordHash": "$2b$10$Q.YN0fzShmkyCxZ0zlrM/eMk4yL9XxYVtZ5yweGi0xnjJTXXQkO9K",
+    "name": "Sanjay Verma",
+    "role": "ADMIN",
+    "isVerified": true,
+    "safetyId": "VS-805374",
+    "trustCircle": [
+      {
+        "name": "Aditi Verma",
+        "phone": "+91 98222 33344",
+        "relation": "SPOUSE",
+        "isBroadcasting": true,
+        "lastSeen": "10 mins ago"
+      },
+      {
+        "name": "Inspector Sharma",
+        "phone": "+91 99887 76655",
+        "relation": "GUARDIAN",
+        "isBroadcasting": false,
+        "lastSeen": "1 hr ago"
+      }
+    ],
+    "bloodType": "O+",
+    "medicalConditions": "None",
+    "hasCompletedOnboarding": true,
+    "avatarUrl": ""
+  },
+  {
+    "uid": "uid_peajdccg",
+    "email": "sanvi@vanguard.mesh",
+    "passwordHash": "$2b$10$k1mGReEezyoWUf1pfGLbc..bGuiulynoCKU5Qf/X5CYz3yCZSX6zi",
+    "name": "Sanvi",
+    "role": "USER",
+    "isVerified": false,
+    "otpCode": "159457",
+    "otpExpires": 1783963643124,
+    "safetyId": "VS-843102",
+    "trustCircle": [],
+    "bloodType": "A-",
+    "medicalConditions": "None",
+    "hasCompletedOnboarding": false,
+    "avatarUrl": ""
+  }
+]

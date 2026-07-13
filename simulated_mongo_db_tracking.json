@@ -1,0 +1,49 @@
+[
+  {
+    "sessionId": "TRK_ACTIVE_DEMO",
+    "userEmail": "user@vanguard.mesh",
+    "userName": "Amit Patel",
+    "guardianEmails": [
+      "police@vanguard.mesh",
+      "volunteer@vanguard.mesh"
+    ],
+    "origin": {
+      "lat": 17.6868,
+      "lng": 83.2185
+    },
+    "destination": {
+      "lat": 17.7041,
+      "lng": 83.2215
+    },
+    "currentLocation": {
+      "lat": 17.6950,
+      "lng": 83.2200
+    },
+    "routePath": [
+      {
+        "lat": 17.6868,
+        "lng": 83.2185
+      },
+      {
+        "lat": 17.6910,
+        "lng": 83.2190
+      },
+      {
+        "lat": 17.6950,
+        "lng": 83.2200
+      },
+      {
+        "lat": 17.7000,
+        "lng": 83.2210
+      },
+      {
+        "lat": 17.7041,
+        "lng": 83.2215
+      }
+    ],
+    "etaMinutes": 8,
+    "status": "ACTIVE",
+    "lastUpdated": "2026-07-13T15:59:05.765Z",
+    "deviationMeters": 28
+  }
+]

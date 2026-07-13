@@ -32,6 +32,15 @@ const AuthPage: React.FC<AuthPageProps> = ({ onAuthSuccess }) => {
     setSuccess('');
   };
 
+  const handleAutofillAndLogin = (targetEmail: string, targetRole: 'USER' | 'VOLUNTEER' | 'POLICE' | 'ADMIN') => {
+    resetMessages();
+    setViewState('LOGIN');
+    setEmail(targetEmail);
+    setPassword('Password123!');
+    setRole(targetRole);
+    setSuccess(`Aligned credentials for ${targetRole} (${targetEmail}). Tap 'AUTHORIZE HANDSHAKE' below.`);
+  };
+
   // 1. LOGIN PROCEDURES
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -607,30 +616,47 @@ const AuthPage: React.FC<AuthPageProps> = ({ onAuthSuccess }) => {
 
         {/* COMPREHENSIVE SEEDED ACCOUNTS LEGEND FOR FAST AND BEAUTIFUL INSPECTION */}
         <div className="mt-8 border-t border-white/5 pt-6 space-y-3 relative z-10">
-           <p className="text-[9px] font-mono uppercase font-black text-indigo-400/80 leading-snug tracking-wider">
-              Virtual MongoDB Seed Credentials (Pre-Verified Roles Logins):
+           <p className="text-[9px] font-mono uppercase font-black text-indigo-400/80 leading-snug tracking-wider flex items-center justify-between">
+              <span>Virtual MongoDB Seed Credentials:</span>
+              <span className="text-[8px] text-slate-500 font-bold uppercase">(Tap any box to auto-fill & login)</span>
            </p>
            <div className="grid grid-cols-2 gap-2 text-[8px] font-mono text-slate-500">
-              <div className="p-2.5 bg-neutral-950 border border-white/5 rounded-xl">
-                 <span className="text-white font-black block leading-none">USER ACCOUNT</span>
-                 <p className="mt-1 text-indigo-300">user@vanguard.mesh</p>
+              <button
+                 type="button"
+                 onClick={() => handleAutofillAndLogin('user@vanguard.mesh', 'USER')}
+                 className="p-2.5 bg-neutral-950 border border-white/5 hover:border-indigo-500/50 rounded-xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] group"
+              >
+                 <span className="text-white font-black block leading-none group-hover:text-indigo-400 transition-colors">USER ACCOUNT</span>
+                 <p className="mt-1 text-indigo-300 font-extrabold">user@vanguard.mesh</p>
                  <span className="text-neutral-600 font-bold block mt-0.5">Pass: Password123!</span>
-              </div>
-              <div className="p-2.5 bg-neutral-950 border border-white/5 rounded-xl">
-                 <span className="text-white font-black block leading-none">VOLUNTEER ACCOUNT</span>
-                 <p className="mt-1 text-indigo-300">volunteer@vanguard.mesh</p>
+              </button>
+              <button
+                 type="button"
+                 onClick={() => handleAutofillAndLogin('volunteer@vanguard.mesh', 'VOLUNTEER')}
+                 className="p-2.5 bg-neutral-950 border border-white/5 hover:border-indigo-500/50 rounded-xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] group"
+              >
+                 <span className="text-white font-black block leading-none group-hover:text-indigo-400 transition-colors">VOLUNTEER ACCOUNT</span>
+                 <p className="mt-1 text-indigo-300 font-extrabold">volunteer@vanguard.mesh</p>
                  <span className="text-neutral-600 font-bold block mt-0.5">Pass: Password123!</span>
-              </div>
-              <div className="p-2.5 bg-neutral-950 border border-white/5 rounded-xl">
-                 <span className="text-white font-black block leading-none">POLICE SENTRY</span>
-                 <p className="mt-1 text-indigo-300">police@vanguard.mesh</p>
+              </button>
+              <button
+                 type="button"
+                 onClick={() => handleAutofillAndLogin('police@vanguard.mesh', 'POLICE')}
+                 className="p-2.5 bg-neutral-950 border border-white/5 hover:border-indigo-500/50 rounded-xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] group"
+              >
+                 <span className="text-white font-black block leading-none group-hover:text-indigo-400 transition-colors">POLICE SENTRY</span>
+                 <p className="mt-1 text-indigo-300 font-extrabold">police@vanguard.mesh</p>
                  <span className="text-neutral-600 font-bold block mt-0.5">Pass: Password123!</span>
-              </div>
-              <div className="p-2.5 bg-neutral-950 border border-white/5 rounded-xl">
-                 <span className="text-white font-black block leading-none">ADMINISTRATOR</span>
-                 <p className="mt-1 text-indigo-300">admin@vanguard.mesh</p>
+              </button>
+              <button
+                 type="button"
+                 onClick={() => handleAutofillAndLogin('admin@vanguard.mesh', 'ADMIN')}
+                 className="p-2.5 bg-neutral-950 border border-white/5 hover:border-indigo-500/50 rounded-xl text-left transition-all hover:scale-[1.02] active:scale-[0.98] group"
+              >
+                 <span className="text-white font-black block leading-none group-hover:text-indigo-400 transition-colors">ADMINISTRATOR</span>
+                 <p className="mt-1 text-indigo-300 font-extrabold">admin@vanguard.mesh</p>
                  <span className="text-neutral-600 font-bold block mt-0.5">Pass: Password123!</span>
-              </div>
+              </button>
            </div>
         </div>
 
