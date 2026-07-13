@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HealthVerse - Unified Bio-Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;800&display=swap');
+      
+      :root {
+        --medical-blue: #020617;
+        --neon-teal: #14b8a6;
+        --electric-indigo: #6366f1;
+        --emergency-red: #ef4444;
+      }
+
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: var(--medical-blue);
+        color: #f8fafc;
+        -webkit-tap-highlight-color: transparent;
+        overflow-x: hidden;
+      }
+
+      .mono { font-family: 'JetBrains Mono', monospace; }
+
+      .techno-grid {
+        background-image: 
+          linear-gradient(rgba(20, 184, 166, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(20, 184, 166, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        background-position: center center;
+      }
+
+      .glass-card {
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(32px);
+        -webkit-backdrop-filter: blur(32px);
+        border: 1px solid rgba(20, 184, 166, 0.15);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      .neon-border {
+        box-shadow: 0 0 15px rgba(20, 184, 166, 0.3), inset 0 0 10px rgba(20, 184, 166, 0.1);
+      }
+
+      .hologram-flicker {
+        animation: flicker 4s linear infinite;
+      }
+
+      @keyframes flicker {
+        0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
+        20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.4; }
+      }
+
+      .bio-scan-line {
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, transparent, var(--neon-teal), transparent);
+        position: absolute;
+        top: 0;
+        z-index: 50;
+        animation: scanning 3s ease-in-out infinite;
+        box-shadow: 0 0 15px var(--neon-teal);
+      }
+
+      @keyframes scanning {
+        0%, 100% { top: 0%; opacity: 0; }
+        10%, 90% { opacity: 1; }
+        50% { top: 100%; }
+      }
+
+      .neural-pulse {
+        animation: neural-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      @keyframes neural-pulse {
+        0%, 100% { transform: scale(1); opacity: 0.8; filter: brightness(1); }
+        50% { transform: scale(1.1); opacity: 1; filter: brightness(1.5); }
+      }
+
+      .sos-pulse {
+        animation: pulse-red 1.5s infinite;
+      }
+
+      @keyframes pulse-red {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6); }
+        50% { box-shadow: 0 0 30px 20px rgba(239, 68, 68, 0); }
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: rgba(20, 184, 166, 0.2); border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: rgba(20, 184, 166, 0.4); }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.40.0",
+    "recharts": "https://esm.sh/recharts@^3.7.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="techno-grid min-h-screen selection:bg-teal-500/30 overflow-x-hidden">
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

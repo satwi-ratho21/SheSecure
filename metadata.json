@@ -1,0 +1,12 @@
+{
+  "name": "Vanguard Safety",
+  "description": "A high-reliability safety ecosystem for women, featuring instant SOS, live trust-circle tracking, AI-powered danger detection, and a secure incident locker.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation",
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
