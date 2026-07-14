@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
 
       // Allow your Render domain
       allowedHosts: [
-        'vanguard-safety.onrender.com'
+        "shesecure-ai.onrender.com"
       ],
 
       // OR, during development, you can use:
