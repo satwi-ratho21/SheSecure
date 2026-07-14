@@ -13,7 +13,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { generateSafeRoute, analyzeEvidenceRecord, generateGuardianAvatar, simulateSafetyProjection, classifyIntent, analyzeThreatReport } from "./services/gemini";
 
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 // Hardened JWT secret generation & validation
 let JWT_SECRET = process.env.JWT_SECRET;
